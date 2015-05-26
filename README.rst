@@ -21,14 +21,17 @@ Usage
 Installation
 ------------
 
-git clone https://github.com/mwv/zca.git
-cd zca; python setup.py install
+.. code:: bash
+
+    git clone https://github.com/mwv/zca.git
+    cd zca; python setup.py install
 
 Requirements
 ^^^^^^^^^^^^
-numpy
-scipy
-scikit-learn
+
+- numpy
+- scipy
+- scikit-learn
 
 
 Licence
