@@ -22,7 +22,7 @@ from scipy import linalg
 
 from sklearn.base import TransformerMixin, BaseEstimator
 from sklearn.utils.validation import check_is_fitted
-from sklearn.utils import check_array, warn_if_not_float
+from sklearn.utils import check_array, as_float_array
 
 class ZCA(BaseEstimator, TransformerMixin):
     def __init__(self, regularization=1e-6, copy=False):
@@ -62,9 +62,7 @@ class ZCA(BaseEstimator, TransformerMixin):
             The data to whiten along the features axis.
         """
         check_is_fitted(self, 'mean_')
-        copy = copy if copy is not None else self.copy
-        if warn_if_not_float(X, estimator=self):
-            X = X.astype(np.float)
+        X = as_float_array(X, copy=self.copy)
         return np.dot(X - self.mean_, self.whiten_.T)
 
     def inverse_transform(self, X, copy=None):
@@ -77,7 +75,5 @@ class ZCA(BaseEstimator, TransformerMixin):
             The data to rotate back.
         """
         check_is_fitted(self, 'mean_')
-        copy = copy if copy is not None else self.copy
-        if warn_if_not_float(X, estimator=self):
-            X = X.astype(np.float)
+        X = as_float_array(X, copy=self.copy)
         return np.dot(X, self.dewhiten_) + self.mean_
