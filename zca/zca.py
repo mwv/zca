@@ -40,8 +40,7 @@ class ZCA(BaseEstimator, TransformerMixin):
         """
         X = check_array(X, accept_sparse=None, copy=self.copy,
                         ensure_2d=True)
-        if warn_if_not_float(X, estimator=self):
-            X = X.astype(np.float)
+        X = as_float_array(X, copy=self.copy)
         self.mean_ = X.mean(axis=0)
         X_ = X - self.mean_
         cov = np.dot(X_.T, X_) / (X_.shape[0]-1)
